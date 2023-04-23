@@ -21,8 +21,14 @@ sealed interface UserListState {
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(
-    repo: UserListRepository
+    private val repo: UserListRepository
 ) : ViewModel() {
-    var state: UserListState by mutableStateOf(UserListState.Success(text="bonjour"))
+
+    private fun getSomethingFromRepo(): String {
+        return repo.getSomethingFromService()
+    }
+    var state: UserListState by mutableStateOf(UserListState.Success(text=getSomethingFromRepo()))
         private set
+
+
 }

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
-    repo: ProfileEditRepository
+    private val repo: ProfileEditRepository
 ) : ViewModel() {
     private val _isLoading: MutableState<Boolean> = mutableStateOf(false)
     val isLoading: State<Boolean> get() = _isLoading

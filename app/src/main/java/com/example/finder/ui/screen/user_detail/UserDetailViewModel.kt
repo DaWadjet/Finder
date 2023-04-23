@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserDetailViewModel @Inject constructor(
-    repo: UserDetailRepository
+    private val repo: UserDetailRepository
 ) : ViewModel() {
 
 }
