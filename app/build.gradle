@@ -4,16 +4,17 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.devtools.ksp' version "1.8.0-1.0.9"
+
 }
 
 android {
     namespace 'com.example.finder'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.finder"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
