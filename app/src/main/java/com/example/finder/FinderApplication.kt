@@ -1,6 +1,9 @@
 package com.example.finder
 
-class FinderApplication : Application() {
+import android.app.Application
+import com.example.finder.persistence.UserDatabase.*
+import dagger.hilt.android.HiltAndroidApp
 
-    val database: CityDatabase by lazy { CityDatabase.getDatabase(this) }
-}
+
+@HiltAndroidApp
+class FinderApplication : Application()
