@@ -7,5 +7,7 @@ import javax.inject.Inject
 class UserListRepository @Inject constructor(
     private val randomuserService: RandomuserService
 ) {
-
+    fun getSomethingFromService(): String {
+        return randomuserService.imageUrl;
+    }
 }

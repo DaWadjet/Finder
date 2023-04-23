@@ -25,7 +25,7 @@ fun FinderAppNavHost(
         startDestination = startDestination
     ) {
         composable("user-list") {UserListScreen(navController = navController, userListViewModel = hiltViewModel())}
-        composable("profile-edit") {ProfileEditScreen()}
+        composable("profile-edit") {ProfileEditScreen(navController = navController, profileListViewModel = hiltViewModel())}
         composable("user/{username}",
             arguments = listOf(
                 navArgument("username"){type = NavType.StringType}
