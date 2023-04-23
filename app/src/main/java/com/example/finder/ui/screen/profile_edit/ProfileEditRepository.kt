@@ -1,4 +1,11 @@
 package com.example.finder.ui.screen.profile_edit
 
-class ProfileEditRepository {
+import com.example.finder.persistence.UserDao
+import javax.inject.Inject
+
+
+class ProfileEditRepository @Inject constructor(
+    private val userDao: UserDao
+) {
+
 }
