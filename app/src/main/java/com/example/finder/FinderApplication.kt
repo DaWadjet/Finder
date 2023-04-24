@@ -6,7 +6,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-class FinderApplication : Application() {
-
-    val database: UserDatabase by lazy { UserDatabase.getDatabase(this)}
-}
+class FinderApplication : Application()
