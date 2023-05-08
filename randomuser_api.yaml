@@ -1,0 +1,242 @@
+swagger: '2.0'
+info:
+  title: Randomuser API
+  description: API to manage Randomuser data
+  version: 1.0.0
+host: randomuser.me
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /:
+    post:
+      summary: Create a new user
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: User object to be created
+          schema:
+            $ref: '#/definitions/UserDto'
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Invalid input data
+    get:
+      summary: Get all users
+      parameters:
+        - in: query
+          name: seed
+          description: Seed to generate the same set of random users
+          type: string
+          default: foobar
+        - in: query
+          name: results
+          description: Maximum number of users returned
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: Users retrieved successfully
+          schema:
+            $ref: '#/definitions/RandomuserResults'
+        '400':
+          description: Invalid input data
+    put:
+      summary: Update an existing user
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: User object to be updated
+          schema:
+            $ref: '#/definitions/UserDto'
+      responses:
+        '200':
+          description: User updated successfully
+        '400':
+          description: Invalid input data
+        '404':
+          description: User not found
+  /{username}:
+    delete:
+      summary: Delete an existing user
+      parameters:
+        - in: path
+          name: username
+          description: Username of the user to be deleted
+          type: string
+          required: true
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+definitions:
+  UserDto:
+    type: object
+    properties:
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      city:
+        type: string
+      age:
+        type: integer
+        format: int32
+      pronouns:
+        type: string
+      phoneNumber:
+        type: string
+    required:
+      - username
+      - firstName
+      - lastName
+      - city
+      - age
+      - pronouns
+      - phoneNumber
+  RandomuserResults:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/Result'
+      info:
+        $ref: '#/definitions/Info'
+  Info:
+    type: object
+    properties:
+      seed:
+        type: string
+      results:
+        type: integer
+      page:
+        type: integer
+      version:
+        type: string
+  Result:
+    type: object
+    properties:
+      gender:
+        type: string
+      name:
+        $ref: '#/definitions/Name'
+      location:
+        $ref: '#/definitions/Location'
+      email:
+        type: string
+      login:
+        $ref: '#/definitions/Login'
+      dob:
+        $ref: '#/definitions/Dob'
+      registered:
+        $ref: '#/definitions/Dob'
+      phone:
+        type: string
+      cell:
+        type: string
+      id:
+        $ref: '#/definitions/ID'
+      picture:
+        $ref: '#/definitions/Picture'
+      nat:
+        type: string
+  Dob:
+    type: object
+    properties:
+      date:
+        type: string
+      age:
+        type: integer
+  ID:
+    type: object
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+  Location:
+    type: object
+    properties:
+      street:
+        $ref: '#/definitions/Street'
+      city:
+        type: string
+      state:
+        type: string
+      country:
+        type: string
+      postcode:
+        type: string
+      coordinates:
+        $ref: '#/definitions/Coordinates'
+      timezone:
+        $ref: '#/definitions/Timezone'
+  Coordinates:
+    type: object
+    properties:
+      latitude:
+        type: string
+      longitude:
+        type: string
+  Street:
+    type: object
+    properties:
+      number:
+        type: integer
+      name:
+        type: string
+  Timezone:
+    type: object
+    properties:
+      offset:
+        type: string
+      description:
+        type: string
+  Login:
+    type: object
+    properties:
+      uuid:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      salt:
+        type: string
+      md5:
+        type: string
+      sha1:
+        type: string
+      sha256:
+        type: string
+  Name:
+    type: object
+    properties:
+      title:
+        type: string
+      first:
+        type: string
+      last:
+        type: string
+  Picture:
+    type: object
+    properties:
+      large:
+        type: string
+      medium:
+        type: string
+      thumbnail:
+        type: string
