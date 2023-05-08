@@ -1,6 +1,6 @@
 package com.example.finder.di
 
-import com.example.finder.network.RandomuserService
+import com.example.finder.network.RandomuserApi
 import com.example.finder.persistence.UserDao
 import com.example.finder.ui.screen.profile_edit.ProfileEditRepository
 import com.example.finder.ui.screen.user_detail.UserDetailRepository
@@ -26,7 +26,7 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideUserListRepository(
-        randomuserService: RandomuserService
+        randomuserService: RandomuserApi
     ): UserListRepository {
         return UserListRepository(randomuserService)
     }
