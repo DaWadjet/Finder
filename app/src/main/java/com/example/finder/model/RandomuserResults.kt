@@ -115,7 +115,8 @@ fun mapResultsToUserDtoList(results: RandomuserResults): List<UserDto> {
             city = result.location.city,
             age = result.dob.age.toInt(),
             pronouns = getPronouns(result.gender),
-            phoneNumber = result.phone
+            phoneNumber = result.phone,
+             imageUrl = result.picture.medium
         )
     }
 }

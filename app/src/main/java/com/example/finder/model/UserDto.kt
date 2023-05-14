@@ -8,7 +8,21 @@ data class UserDto(
     val city: String,
     val age: Int,
     val pronouns: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val imageUrl: String
 )
 
 
+fun UserDto.toUser(isMe: Boolean = false): User {
+ return User(
+  isMe = isMe,
+  username = this.username,
+  firstName = this.firstName,
+  lastName = this.lastName,
+  city = this.city,
+  age = this.age,
+  pronouns = this.pronouns,
+  phoneNumber = this.phoneNumber,
+  imageUrl = this.imageUrl
+ )
+}
