@@ -1,10 +1,15 @@
 package com.example.finder.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RandomuserResults (
     val results: List<Result>,
     val info: Info
 )
 
+
+@Serializable
 data class Info (
     val seed: String,
     val results: Long,
@@ -12,6 +17,8 @@ data class Info (
     val version: String
 )
 
+
+@Serializable
 data class Result (
     val gender: String,
     val name: Name,
@@ -27,41 +34,52 @@ data class Result (
     val nat: String
 )
 
-data class Dob (
+
+@Serializable data class Dob (
     val date: String,
     val age: Long
 )
 
+
+@Serializable
 data class ID (
     val name: String,
-    val value: String
 )
 
+
+@Serializable
 data class Location (
     val street: Street,
     val city: String,
     val state: String,
     val country: String,
-    val postcode: String,
     val coordinates: Coordinates,
     val timezone: Timezone
 )
 
+
+@Serializable
 data class Coordinates (
     val latitude: String,
     val longitude: String
 )
 
+
+@Serializable
 data class Street (
     val number: Long,
     val name: String
 )
 
+
+@Serializable
 data class Timezone (
     val offset: String,
     val description: String
 )
 
+
+@Serializable
 data class Login (
     val uuid: String,
     val username: String,
@@ -72,12 +90,16 @@ data class Login (
     val sha256: String
 )
 
+
+@Serializable
 data class Name (
     val title: String,
     val first: String,
     val last: String
 )
 
+
+@Serializable
 data class Picture (
     val large: String,
     val medium: String,

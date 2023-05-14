@@ -2,6 +2,7 @@
 package com.example.finder.ui.screen.user_list
 
 import androidx.annotation.WorkerThread
+import com.example.finder.model.UserDto
 import com.example.finder.model.mapResultsToUserDtoList
 import com.example.finder.network.RandomuserApi
 import kotlinx.coroutines.Dispatchers
@@ -22,13 +23,12 @@ class UserListRepository @Inject constructor(
         onCompletion: () -> Unit,
         onError: (String) -> Unit
     ) = flow {
+
         val response = randomuserService.findAll()
-        if (response.isSuccessful && response.body() != null) {
-            val users = mapResultsToUserDtoList(response.body()!!)
+            val users = mapResultsToUserDtoList(response)
             emit(users)
-        } else {
-            onError("Failed to load users")
-        }
+
+
     }.onStart { onStart() }
         .onCompletion { onCompletion() }
         .catch { e ->
