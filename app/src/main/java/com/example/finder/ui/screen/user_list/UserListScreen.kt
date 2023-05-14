@@ -20,7 +20,7 @@ fun UserListScreen(
     userListViewModel: UserListViewModel,
 ) {
 
-    val userList by userListViewModel.userList.collectAsState(emptyList())
+    val userList by userListViewModel.userList.collectAsState(initial = emptyList())
     val isLoading by userListViewModel.isLoading
 
     Scaffold(
@@ -38,7 +38,6 @@ fun UserListScreen(
 
                 )
             } else {
-                // Show the user list
                 LazyColumn {
                     items(userList) { user ->
                         UserItem(user = user)
