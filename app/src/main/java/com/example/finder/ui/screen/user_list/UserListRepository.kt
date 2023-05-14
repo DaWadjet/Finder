@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import com.example.finder.model.UserDto
 import com.example.finder.model.mapResultsToUserDtoList
 import com.example.finder.network.RandomuserApi
+import com.example.finder.persistence.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -15,8 +16,23 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class UserListRepository @Inject constructor(
-    private val randomuserService: RandomuserApi
+    private val randomuserService: RandomuserApi,
+    private val userDao: UserDao,
 ) {
+@WorkerThread
+    fun loadMe(
+    onStart: () -> Unit,
+    onCompletion: () -> Unit,
+    onError: (String) -> Unit
+    ) = flow {
+        val me =  userDao.getMe()
+        emit(me)
+    }.onStart { onStart() }
+    .onCompletion { onCompletion() }
+    .catch { e ->
+        onError(e.message ?: "Unknown error occurred")
+    }
+    .flowOn(Dispatchers.IO)
     @WorkerThread
     fun loadUsers(
         onStart: () -> Unit,

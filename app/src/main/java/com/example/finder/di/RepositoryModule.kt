@@ -26,9 +26,10 @@ object RepositoryModule {
     @Provides
     @ViewModelScoped
     fun provideUserListRepository(
-        randomuserService: RandomuserApi
+        randomuserService: RandomuserApi,
+        userDao: UserDao
     ): UserListRepository {
-        return UserListRepository(randomuserService)
+        return UserListRepository(randomuserService, userDao)
     }
 
     @Provides
