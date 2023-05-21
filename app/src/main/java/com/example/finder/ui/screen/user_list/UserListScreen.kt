@@ -34,6 +34,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.finder.model.User
 import com.example.finder.model.UserDto
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.serialization.json.Json
 import org.json.JSONStringer
 import java.util.*
@@ -81,7 +82,10 @@ fun UserListScreen(
                         "Users list",
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable {
+                                throw RuntimeException("Test Crash") // Force a crash
+                            }
                     )
                 },
     navigationIcon = {
