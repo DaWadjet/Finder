@@ -14,7 +14,9 @@ data class User(
     @ColumnInfo(name = "age") val age: Int,
     @ColumnInfo(name = "pronouns") val pronouns: String,
     @ColumnInfo(name = "phoneNumber") val phoneNumber: String,
-    @ColumnInfo(name = "imageUrl") val imageUrl: String
+    @ColumnInfo(name = "imageUrl") val imageUrl: String,
+    @ColumnInfo(name = "isLiked") val isLiked: Boolean = false
+
 
 
 ) {
@@ -25,6 +27,7 @@ data class User(
                 firstName = "",
                 lastName = "",
                 age = 0,
+                isLiked = false,
                 city = "",
                 pronouns = "he/him",
                 username = "",
@@ -45,7 +48,8 @@ fun User.toDto(): UserDto {
         age = this.age,
         pronouns = this.pronouns,
         phoneNumber = this.phoneNumber,
-        imageUrl = this.imageUrl
+        imageUrl = this.imageUrl,
+        isLiked = this.isLiked,
     )
 }
 
