@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import kotlinx.coroutines.flow.collectLatest
 
@@ -23,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -54,6 +57,21 @@ fun UserListScreen(
             navController.navigate("profile-edit")
         }
     }
+
+    val gradientBrushMen = Brush.horizontalGradient(
+            listOf(
+                Color(0xFF6495ED), // Light blue gradient for men
+                Color(0xFF4169E1)  // Dark blue gradient for men (slightly lighter color)
+
+            ))
+
+                    val gradientBrushWomen = Brush.horizontalGradient(
+            listOf(
+                Color(0xFFFFA500), // Orange gradient for women
+                Color(0xFFFFD700)
+            ))
+
+
 
     Scaffold(
         topBar = {
@@ -88,6 +106,8 @@ fun UserListScreen(
                 } else {
                     LazyColumn {
                         items(userList) { item ->
+
+
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -116,8 +136,14 @@ fun UserListScreen(
                                         contentDescription = null,
                                         modifier = Modifier
                                             .size(70.dp)
-                                            .clip(CircleShape),
+                                            .clip(CircleShape) .border(
+                                                width = 3.dp,
+                                                brush = if(item.pronouns == "he/him") gradientBrushMen else gradientBrushWomen,
+                                                shape = CircleShape
+                                            ),
                                         contentScale = ContentScale.Crop
+
+
                                     )
                                     Column(
                                         modifier = Modifier.padding(start = 16.dp)
