@@ -13,6 +13,8 @@ interface UserDao {
     fun getMe(): User?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun create(user: User)
+    @Query("SELECT * from users WHERE username = :username")
+    suspend fun getUser(username: String): User?
     @Update
     suspend fun update(user: User)
     @Delete

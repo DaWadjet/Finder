@@ -1,5 +1,6 @@
 package com.example.finder.ui.screen.user_list
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
@@ -30,6 +31,8 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.finder.model.User
 import com.example.finder.model.UserDto
+import kotlinx.serialization.json.Json
+import org.json.JSONStringer
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +55,6 @@ fun UserListScreen(
         }
     }
 
-    Log.d("me", me.toString())
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -90,6 +92,12 @@ fun UserListScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp, horizontal = 16.dp)
+                                    .clickable {
+                                        val userString = Json.encodeToString(serializer = UserDto.serializer(),item)
+                                        navController.navigate(
+                                            "user/${Uri.encode(userString)}"
+                                        )
+                                    }
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,

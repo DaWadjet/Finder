@@ -116,7 +116,8 @@ fun mapResultsToUserDtoList(results: RandomuserResults): List<UserDto> {
             age = result.dob.age.toInt(),
             pronouns = getPronouns(result.gender),
             phoneNumber = result.phone,
-             imageUrl = result.picture.medium
+             imageUrl = result.picture.large,
+            isLiked = false,
         )
     }
 }

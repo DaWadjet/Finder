@@ -2,7 +2,9 @@ package com.example.finder.ui.screen.profile_edit
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
@@ -30,7 +33,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
@@ -62,6 +67,20 @@ fun ProfileEditScreen(
             }
         }
     }
+
+    val gradientBrush = Brush.horizontalGradient(
+        if (user.value.pronouns.lowercase() == "he/him") {
+            listOf(
+                Color(0xFF6495ED), // Light blue gradient for men
+                Color(0xFF4169E1)  // Dark blue gradient for men (slightly lighter color)
+            )
+        } else {
+            listOf(
+                Color(0xFFFFA500), // Orange gradient for women
+                Color(0xFFFFD700)
+            )
+        }
+    )
     Crossfade(targetState = isLoadingMe) { isLoading ->
         if (isLoading) {
             Box(
@@ -74,7 +93,7 @@ fun ProfileEditScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp, top = 50.dp),
+            .padding(16.dp, top = 36.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -87,11 +106,11 @@ fun ProfileEditScreen(
             ),
             contentDescription = "Avatar",
             modifier = Modifier
-                .size(120.dp)
+                .size(200.dp)
                 .clip(CircleShape)
                 .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colors.secondary,
+                    width = 6.dp,
+                    brush = gradientBrush,
                     shape = CircleShape
                 )
         )
@@ -99,10 +118,11 @@ fun ProfileEditScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally)
         ) {
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).padding(end = 4.dp)
+
             ) {
                 TextFieldWithLabel(
                     label = "First Name",
@@ -131,11 +151,8 @@ fun ProfileEditScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).padding(start = 4.dp)
             ) {
                 TextFieldWithLabel(
                     label = "Last Name",
@@ -143,10 +160,7 @@ fun ProfileEditScreen(
                     onValueChange = { user.value = user.value.copy(lastName = it) },
                     modifier = Modifier.fillMaxWidth()
                 )
-
-
                 Spacer(modifier = Modifier.height(16.dp))
-
                 TextFieldWithLabel(
                     label = "Pronouns",
                     value = user.value.pronouns,
@@ -175,14 +189,21 @@ fun ProfileEditScreen(
         )
 
         Spacer(modifier = Modifier.height(32.dp))
-
         Button(
-            onClick = {
-                    profileEditViewModel.saveMe(user.value)
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            onClick = { profileEditViewModel.saveMe(user.value) },
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(
+                    brush = gradientBrush
+                )
+                .border(0.dp, color = Color.Transparent),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
         ) {
-            Text("Save")
+            Text(
+                text = "Save", color = Color.Black,
+                style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
+            )
         }
     }
 }}}
